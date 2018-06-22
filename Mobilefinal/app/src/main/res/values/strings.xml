@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Mobilefinal</string>
+    <string name="action_settings">Settings</string>
+    <string name="id">ID</string>
+    <string name="nota">Notas</string>
+    <string name="precurso">Curso Pretendido</string>
+    <string name="excluir">Excluir</string>
+    <string name="altera">Alterar</string>
+    <string name="editid" />
+    <string name="editnota" />
+    <string name="editcurso" />
+</resources>
