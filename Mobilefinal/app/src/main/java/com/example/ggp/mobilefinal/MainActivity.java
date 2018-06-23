@@ -6,14 +6,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     EditText editid,editnota,editcurso;
     Button exclui,altera;
     ListView listviewnota;
+
+    DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+
+    ArrayAdapter<String> adapter;
+    ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +54,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void listaNota(){
+        List<Nota> notas = db.listaNotaFaculdade();
+
+        arrayList = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,arrayList);
+        listviewnota.setAdapter(adapter);
+
+        for(Nota not : notas){
+            arrayList.add(not.getId()+" - "+not.getCurso()+"\n"+not.getNota());
+        }
     }
 }

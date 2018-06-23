@@ -1,21 +1,12 @@
 package com.example.ggp.mobilefinal;
 
-public class Nota {
+public class Faculdade {
     private int id;
     private float nota;
+    private String cidade;
     private String curso;
 
-    public Nota(){}
-
-    public Nota(int id, float nota, String curso) {
-        this.id = id;
-        this.nota = nota;
-        this.curso = curso;
-    }
-
-    public Nota(float nota, String curso) {
-        this.nota = nota;
-        this.curso = curso;
+    public Faculdade() {
     }
 
     public int getId() {
@@ -30,10 +21,16 @@ public class Nota {
         return nota;
     }
 
-    public void setNota(String nota) {
-        float not;
-        not = Float.parseFloat(nota);
-        this.nota = not;
+    public void setNota(float nota) {
+        this.nota = nota;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     public String getCurso() {

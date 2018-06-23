@@ -2,9 +2,13 @@ package com.example.ggp.mobilefinal;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DatabaseHelper extends SQLiteOpenHelper{
     private static final int VERSAO_DB = 1;
@@ -84,7 +88,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         values.put(COLUNA_NOTA, nota.getNota());
         values.put(COLUNA_PRECURSO,nota.getCurso());
-        values.put(COLUNA_CURSO,nota.getCurso());
 
 
         db.insert(TABELA_NOTA, null, values);
@@ -96,5 +99,47 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.delete(TABELA_NOTA,COLUNA_ID +"= ?",new String [] {String.valueOf(nota.getNota())});
         db.close();
 
+    }
+    public Nota mostraNota(int codigo){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_NOTA, new String[] {COLUNA_ID,COLUNA_NOTA,COLUNA_PRECURSO},COLUNA_ID+" = ?",
+                new String[] {String.valueOf(codigo)},null, null,null,null);
+        if (cursor != null){
+            cursor.moveToFirst();
+        }
+        Nota values;
+        values = new Nota(Integer.parseInt(cursor.getString(0)),
+                Float.parseFloat(cursor.getString(1)),cursor.getString(2));
+        return values;
+
+    }
+    public void alteraNota(Nota nota){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUNA_NOTA, nota.getNota());
+        values.put(COLUNA_PRECURSO,nota.getCurso());
+        db.update(TABELA_NOTA, values,COLUNA_ID +"= ?", new String [] {String.valueOf(nota.getNota())});
+
+
+    }
+    public List<Nota> listaNotaFaculdade(){
+        List<Nota> listaNota = new ArrayList<Nota>();
+//        String querry = "SELECT * FROM"+TABELA_NOTA+","+ TABELA_FACULDADE+"WHERE " +COLUNA_NOTA +" >= "+COLUNA_NOTA_CURSO
+//                + " AND " + COLUNA_PRECURSO+" = "+ COLUNA_CURSO;
+        String listaTudo = "SELECT * FROM "+TABELA_NOTA;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(listaTudo,null);
+        if (cursor.moveToFirst()){
+            do {
+                Nota nota = new Nota();
+                nota.setId(Integer.parseInt(cursor.getString(0)));
+                nota.setCurso(cursor.getString(1));
+                nota.setNota(cursor.getString(2));
+
+                listaNota.add(nota);
+            }while (cursor.moveToNext());
+        }
+        return listaNota;
     }
 }
