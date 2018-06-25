@@ -51,6 +51,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/editid"
+        android:enabled="false"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,24 +92,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <Button
-        android:id="@+id/baltera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/altera"
-        app:layout_constraintStart_toEndOf="@+id/bexclui"
-        app:layout_constraintTop_toBottomOf="@+id/editCurso" />
-
     <ListView
         android:id="@+id/listViewNotas"
         android:layout_width="368dp"
         android:layout_height="230dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/baltera" />
+        tools:layout_editor_absoluteY="273dp" />
 </android.support.constraint.ConstraintLayout>

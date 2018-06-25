@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mobilefinal</string>
+    <string name="action_settings">Configuraçao</string>
+    <string name="action_new">Novo</string>
+    <string name="action_salvar">Salvar</string>
+    <string name="id">Codigo</string>
+    <string name="nota">Nota</string>
+    <string name="precurso">Incluir Curso</string>
+    <string name="excluir">Deletar</string>
+    <string name="altera">Alterar</string>
+    <string name="title_activity_settings">Configuraçao</string>
+    <string name="RA">RA: 1705180</string>
+    <string name="curso_settings">Analise e desenvolvimento de Sistemas</string>
+    <string name="nenhumcli">Nenhuma nota</string>
+    <string name="deletar">Deletar</string>
+    <string name="perguntadelete">Voce realmente quer excluir</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="delete">Deletar</string>
+    <string name="excluido">Contato excluido</string>
+    <string name="campolimp">Campos Limpo</string>
+    <string name="obrigatorio">Campos Obrigatorio</string>
+    <string name="title_activity_inicial">Inicial</string>
+    <string name="abremain">Inserir nota</string>
+    <string name="desistir">Nao deletado</string>
+</resources>

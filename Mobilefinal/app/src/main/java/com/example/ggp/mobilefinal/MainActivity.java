@@ -66,27 +66,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String idcod = editid.getText().toString();
                 if(idcod.isEmpty()){
-                    Toast.makeText(MainActivity.this,"Nenhum cliente",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,R.string.nenhumcli,Toast.LENGTH_LONG).show();
                 }
                 else {
-                    alert.setTitle("Deletar");
-                    alert.setMessage("Deseja exluir mesmo excluir");
+                    alert.setTitle(R.string.deletar);
+                    alert.setMessage(R.string.perguntadelete);
                     alert.setCancelable(false);
-                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton(R.string.Cancelar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(MainActivity.this,"Nao excluir", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this,R.string.desistir, Toast.LENGTH_LONG).show();
                         }
 
                     });
-                    alert.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Nota not = new Nota();
                             not.setId(Integer.parseInt(idcod));
                             db.deleteNota(not);
                             limpaCampos();
-                            Toast.makeText(MainActivity.this,"Contato excluido",Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this,R.string.excluido,Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if(id == R.id.action_new){
-            Toast.makeText(getApplicationContext(),"Campos limpos",Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),R.string.campolimp,Toast.LENGTH_LONG);
             limpaCampos();
         }
         if(id == R.id.action_salvar){
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             String cursopre = editcurso.getText().toString();
 
             if (nota.isEmpty() || cursopre.isEmpty()){
-                editnota.setError("Campo Obrigatorio");
+                editnota.setError(getString(R.string.obrigatorio));
             }
             else if(codi.isEmpty()){
                 db.addNota(new Nota(Float.parseFloat(nota),cursopre));
