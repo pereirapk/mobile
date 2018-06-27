@@ -30,10 +30,8 @@ public class Nota {
         return nota;
     }
 
-    public void setNota(String nota) {
-        float not;
-        not = Float.parseFloat(nota);
-        this.nota = not;
+    public void setNota(Float nota) {
+        this.nota = nota;
     }
 
     public String getCurso() {

@@ -33,11 +33,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         String criaNota ="CREATE TABLE " + TABELA_NOTA + " ("
-                + COLUNA_ID + " INTEGER PRIMARY KEY, "
+                + COLUNA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUNA_NOTA + " REAL,"
-                + COLUNA_PRECURSO + " TEXT"
-                +COLUNA_ID_FACULDADE + "INTEGER ," +
-                "FOREIGN KEY("+COLUNA_ID_FACULDADE +") REFERENCES "+TABELA_FACULDADE+"("+COLUNA_COD+") )";
+                + COLUNA_PRECURSO + " TEXT)";/*
+                +COLUNA_ID_FACULDADE + " INTEGER ");
+                "FOREIGN KEY("+COLUNA_ID_FACULDADE +") REFERENCES "+TABELA_FACULDADE+"("+COLUNA_COD+") )";*/
         String criaFaculdade ="CREATE TABLE " + TABELA_FACULDADE + " ("
                 + COLUNA_COD + " INTEGER PRIMARY KEY, "
                 + COLUNA_NOTA_CURSO + " REAL,"
@@ -45,7 +45,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 +COLUNA_CIDADE+ " TEXT);";
         db.execSQL(criaFaculdade);
         db.execSQL(criaNota);
-        db.execSQL("INSERT INTO "+ TABELA_FACULDADE+ " (" + COLUNA_COD+","+ COLUNA_NOTA_CURSO + ","+ COLUNA_CURSO+","+COLUNA_CIDADE+") VALUES (1,507.23,Eng. Eletrica,Apucarana)");
+//        db.execSQL("INSERT INTO "+ TABELA_NOTA+ " (" + COLUNA_ID+","+ COLUNA_NOTA + ","+ COLUNA_PRECURSO+") VALUES (1,507.23,Eng. Eletrica,Apucarana)");
+/*        db.execSQL("INSERT INTO "+ TABELA_FACULDADE+ " (" + COLUNA_COD+","+ COLUNA_NOTA_CURSO + ","+ COLUNA_CURSO+","+COLUNA_CIDADE+") VALUES (1,507.23,Eng. Eletrica,Apucarana)");
         db.execSQL("INSERT INTO "+ TABELA_FACULDADE+ " (" + COLUNA_COD+","+ COLUNA_NOTA_CURSO + ","+ COLUNA_CURSO+","+COLUNA_CIDADE+") VALUES (2,497.92,Eng. Quimica,Apucarana)");
         db.execSQL("INSERT INTO "+ TABELA_FACULDADE+ " (" + COLUNA_COD+","+ COLUNA_NOTA_CURSO + ","+ COLUNA_CURSO+","+COLUNA_CIDADE+") VALUES (3,424.8,Eng. Ambiental,CM)");
         db.execSQL("INSERT INTO "+ TABELA_FACULDADE+ " (" + COLUNA_COD+","+ COLUNA_NOTA_CURSO + ","+ COLUNA_CURSO+","+COLUNA_CIDADE+") VALUES (4,578.79,Eng. Civil,CM)");
@@ -71,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("INSERT INTO "+ TABELA_FACULDADE+ " (" + COLUNA_COD+","+ COLUNA_NOTA_CURSO + ","+ COLUNA_CURSO+","+COLUNA_CIDADE+") VALUES (24,450.32,Cien. Biologica,SH)");
         db.execSQL("INSERT INTO "+ TABELA_FACULDADE+ " (" + COLUNA_COD+","+ COLUNA_NOTA_CURSO + ","+ COLUNA_CURSO+","+COLUNA_CIDADE+") VALUES (25,597.44,Eng. Eletronica,Toledo)");
         db.execSQL("INSERT INTO "+ TABELA_FACULDADE+ " (" + COLUNA_COD+","+ COLUNA_NOTA_CURSO + ","+ COLUNA_CURSO+","+COLUNA_CIDADE+") VALUES (26,454.98,Matematica,Toledo)");
-
+*/
 
 
 
@@ -109,7 +110,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
         Nota values;
         values = new Nota(Integer.parseInt(cursor.getString(0)),
-                Float.parseFloat(cursor.getString(1)),cursor.getString(2));
+                Float.parseFloat(cursor.getString(1)),
+                cursor.getString(2));
         return values;
 
     }
@@ -117,9 +119,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put(COLUNA_ID,nota.getId());
         values.put(COLUNA_NOTA, nota.getNota());
         values.put(COLUNA_PRECURSO,nota.getCurso());
         db.update(TABELA_NOTA, values,COLUNA_ID +"= ?", new String [] {String.valueOf(nota.getNota())});
+        db.close();
+
 
 
     }
@@ -134,8 +139,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             do {
                 Nota nota = new Nota();
                 nota.setId(Integer.parseInt(cursor.getString(0)));
-                nota.setCurso(cursor.getString(1));
-                nota.setNota(cursor.getString(2));
+                nota.setNota(Float.parseFloat(cursor.getString(1)));
+                nota.setCurso(cursor.getString(2));
+
 
                 listaNota.add(nota);
             }while (cursor.moveToNext());
